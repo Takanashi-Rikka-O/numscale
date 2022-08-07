@@ -1,0 +1,34 @@
+								Project<numscale>
+
+Description:
+	numscale is a number format translate tool.Call it 'nums'.nums can translates the target from a type indicated by its prefix to other.
+	Usage: nums <-x | -o | -d | -b> <target>
+
+Design reason:
+	Test for myself and i gonna make this tool to help my work.
+
+Structure:
+	C++ designed structures.
+
+Logic order:
+	Receives option and target from command-line,then call main procedure to process translating.User can use custom interface in this progam.
+	If didnt install any other translating interface,will use default of program.
+
+Feature design:
+	Simple translating.There is non some special features be there.
+
+Develop environment:
+	Linux 3.10
+	gcc 9.3
+	glibc 2.17
+	CentOS 7
+
+Debug or Other:
+	TODO:
+	<Debug and TODO.All programs are not probably no bugs.And they are also have the space to optimize.>
+
+Complement:
+	<There could place some messages as additional.Addition could explain the project in the further gradation.>
+
+Version:
+	v0.01

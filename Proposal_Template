@@ -1,0 +1,59 @@
+								Project<numscale>
+
+Description:
+	numscale is a number format translate tool.Call it 'nums'.nums can translates the target from a type indicated by its prefix to other.
+	Usage: nums <-x | -o | -d | -b> <target>
+
+Design reason:
+	Test for myself and i gonna make this tool to help my work.
+
+Structure:
+	C++ designed structures.
+
+	type tower>
+	     
+		Hex		Oct
+			Dec
+		Bin
+
+		# in this tower,it's not a line chart.
+		# for transform scale of the argument,should let it transform to Dec,then transform Dec to aimmed format.
+		
+	Algorithm>
+		Combine from data let it becomes a Dec number.
+		
+		Sum = a1 * SCALE^(i - 1) + a2 * SCALE^(i - 1) + ... + an * SCALE^(i = n - 1) ;
+		i = 1, 2, 3, 4, ... , n ;
+
+		Transform Dec number to other format.
+
+		{An}(n = 1, 2, 3, 4, ... , A0 = 0)
+		An = Dec - (Dec / SCALE) * SCALE ; Quotient_n = Dec / SCALE ;	# get remainder.
+		Dec = Quotient_n ;
+		An-1 = Dec - (Dec / SCALE) * SCALE ; Quotient_n-1 = Dec / SCALE ;
+		Dec = Quotient_n-1 ;
+
+		UNTIL quotient = 0 ;
+			
+Logic order:
+	Receives option and target from command-line,then call main procedure to process translating.User can use custom interface in this progam.
+	If didnt install any other translating interface,will use default of program.
+
+Feature design:
+	Simple translating.There is non some special features be there.
+
+Develop environment:
+	Linux 3.10
+	gcc 9.3
+	glibc 2.17
+	CentOS 7
+
+Debug or Other:
+	TODO:
+	<Debug and TODO.All programs are not probably no bugs.And they are also have the space to optimize.>
+
+Complement:
+	<There could place some messages as additional.Addition could explain the project in the further gradation.>
+
+Version:
+	v0.01

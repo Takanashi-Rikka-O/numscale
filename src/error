@@ -1,0 +1,189 @@
+numsabs.tcc: In member function ‘std::string nums::numscale<T>::defaultGeneralTransform(long long int)’:
+numsabs.tcc:91:80: error: no match for ‘operator>’ (operand types are ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ and ‘std::__cxx11::basic_string<char>::iterator’)
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                     ~~~~~~~~~~ ^ ~~~~~~~~~~~~~~~~
+      |                                                                     |                          |
+      |                                                                     |                          std::__cxx11::basic_string<char>::iterator
+      |                                                                     std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:67,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:502:5: note: candidate: ‘template<class _IteratorL, class _IteratorR>  requires  three_way_comparable_with<_IteratorR, _IteratorL, std::partial_ordering> constexpr std::compare_three_way_result_t<_IteratorL, _IteratorR> std::operator<=>(const std::reverse_iterator<_IteratorL>&, const std::reverse_iterator<_IteratorR>&)’ (reversed)
+  502 |     operator<=>(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:502:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::__cxx11::basic_string<char>::iterator’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:67,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1476:5: note: candidate: ‘template<class _IteratorL, class _IteratorR>  requires  three_way_comparable_with<_IteratorR, _IteratorL, std::partial_ordering> constexpr std::compare_three_way_result_t<_IteratorL, _IteratorR> std::operator<=>(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&)’ (reversed)
+ 1476 |     operator<=>(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1476:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::__cxx11::basic_string<char>::iterator’ is not derived from ‘const std::move_iterator<_IteratorL>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/basic_string.h:48,
+                 from /usr/local/include/c++/10.3.0/string:55,
+                 from /usr/local/include/c++/10.3.0/bits/locale_classes.h:40,
+                 from /usr/local/include/c++/10.3.0/bits/ios_base.h:41,
+                 from /usr/local/include/c++/10.3.0/ios:42,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/string_view:508:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr decltype (__char_traits_cmp_cat<_Traits>(0)) std::operator<=>(std::basic_string_view<_CharT, _Traits>, std::__type_identity_t<std::basic_string_view<_CharT, _Traits> >)’ (reversed)
+  508 |     operator<=>(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/string_view:508:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> >’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/string:55,
+                 from /usr/local/include/c++/10.3.0/bits/locale_classes.h:40,
+                 from /usr/local/include/c++/10.3.0/bits/ios_base.h:41,
+                 from /usr/local/include/c++/10.3.0/ios:42,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/basic_string.h:6213:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> decltype (__char_traits_cmp_cat<_Traits>(0)) std::operator<=>(const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’ (reversed)
+ 6213 |     operator<=>(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/basic_string.h:6213:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::__cxx11::basic_string<char>::iterator’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:67,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1077:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> constexpr std::__detail::__synth3way_t<_IteratorR, _IteratorL> __gnu_cxx::operator<=>(const __gnu_cxx::__normal_iterator<_IteratorL, _Container>&, const __gnu_cxx::__normal_iterator<_IteratorR, _Container>&)’ (reversed)
+ 1077 |     operator<=>(const __normal_iterator<_IteratorL, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1077:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorR, _Container>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:64,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_pair.h:473:5: note: candidate: ‘template<class _T1, class _T2> constexpr std::common_comparison_category_t<decltype (std::__detail::__synth3way(declval<_T1&>(), declval<_T1&>())), decltype (std::__detail::__synth3way(declval<_T2&>(), declval<_T2&>()))> std::operator<=>(const std::pair<_T1, _T2>&, const std::pair<_T1, _T2>&)’ (rewritten)
+  473 |     operator<=>(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/stl_pair.h:473:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ is not derived from ‘const std::pair<_T1, _T2>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/basic_string.h:48,
+                 from /usr/local/include/c++/10.3.0/string:55,
+                 from /usr/local/include/c++/10.3.0/bits/locale_classes.h:40,
+                 from /usr/local/include/c++/10.3.0/bits/ios_base.h:41,
+                 from /usr/local/include/c++/10.3.0/ios:42,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/string_view:501:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr decltype (__char_traits_cmp_cat<_Traits>(0)) std::operator<=>(std::basic_string_view<_CharT, _Traits>, std::basic_string_view<_CharT, _Traits>)’ (rewritten)
+  501 |     operator<=>(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/string_view:501:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/string:55,
+                 from /usr/local/include/c++/10.3.0/bits/locale_classes.h:40,
+                 from /usr/local/include/c++/10.3.0/bits/ios_base.h:41,
+                 from /usr/local/include/c++/10.3.0/ios:42,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/basic_string.h:6199:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> decltype (__char_traits_cmp_cat<_Traits>(0)) std::operator<=>(const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&, const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>&)’ (rewritten)
+ 6199 |     operator<=>(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/basic_string.h:6199:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/ios_base.h:46,
+                 from /usr/local/include/c++/10.3.0/ios:42,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/system_error:244:3: note: candidate: ‘std::strong_ordering std::operator<=>(const std::error_code&, const std::error_code&)’ (rewritten)
+  244 |   operator<=>(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/local/include/c++/10.3.0/system_error:244:33: note:   no known conversion for argument 1 from ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ to ‘const std::error_code&’
+  244 |   operator<=>(const error_code& __lhs, const error_code& __rhs) noexcept
+      |               ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/local/include/c++/10.3.0/system_error:368:3: note: candidate: ‘std::strong_ordering std::operator<=>(const std::error_condition&, const std::error_condition&)’ (rewritten)
+  368 |   operator<=>(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/local/include/c++/10.3.0/system_error:368:38: note:   no known conversion for argument 1 from ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ to ‘const std::error_condition&’
+  368 |   operator<=>(const error_condition& __lhs,
+      |               ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:67,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:480:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator>(const std::reverse_iterator<_IteratorL>&, const std::reverse_iterator<_IteratorR>&) requires requires{{std::operator>::__x->base() < std::operator>::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+  480 |     operator>(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:480:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::__cxx11::basic_string<char>::iterator’ is not derived from ‘const std::reverse_iterator<_IteratorR>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:67,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1507:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator>(const std::move_iterator<_IteratorL>&, const std::move_iterator<_IteratorR>&) requires requires{{std::operator>::__y->base() < std::operator>::__x->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+ 1507 |     operator>(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1507:5: note:   template argument deduction/substitution failed:
+numsabs.tcc:91:97: note:   ‘std::reverse_iterator<__gnu_cxx::__normal_iterator<char*, std::__cxx11::basic_string<char> > >’ is not derived from ‘const std::move_iterator<_IteratorL>’
+   91 |     for (auto it_of_temp(string::reverse_iterator{tempbuff.end()}); it_of_temp > tempbuff.begin(); --it_of_temp) {
+      |                                                                                                 ^
+numsabs.tcc: In member function ‘long long int nums::numscale<T>::defaultGeneralCombine(const T&) [with T = std::__cxx11::basic_string<char>]’:
+numsabs.tcc:104:74: error: passing ‘const __gnu_cxx::__normal_iterator<const char*, std::__cxx11::basic_string<char> >’ as ‘this’ argument discards qualifiers [-fpermissive]
+  104 |     for (const auto &index(target.end()); index >= target.begin() + 1; --index, mulI *= SCALE_)
+      |                                                                          ^~~~~
+In file included from /usr/local/include/c++/10.3.0/bits/stl_algobase.h:67,
+                 from /usr/local/include/c++/10.3.0/bits/char_traits.h:39,
+                 from /usr/local/include/c++/10.3.0/ios:40,
+                 from /usr/local/include/c++/10.3.0/ostream:38,
+                 from /usr/local/include/c++/10.3.0/iostream:39,
+                 from ../inc/nums-abstract.h:20,
+                 from numsabs.tcc:16:
+/usr/local/include/c++/10.3.0/bits/stl_iterator.h:1014:7: note:   in call to ‘constexpr __gnu_cxx::__normal_iterator<_Iterator, _Container>& __gnu_cxx::__normal_iterator<_Iterator, _Container>::operator--() [with _Iterator = const char*; _Container = std::__cxx11::basic_string<char>]’
+ 1014 |       operator--() _GLIBCXX_NOEXCEPT
+      |       ^~~~~~~~
+numsabs.tcc: In member function ‘long long int nums::numscale<T>::defaultGeneralCombine(const T&) [with T = int]’:
+numsabs.tcc:119:31: error: invalid type argument of unary ‘*’ (have ‘int’)
+  119 |     long long int tempValue = *target;
+      |                               ^~~~~~~
