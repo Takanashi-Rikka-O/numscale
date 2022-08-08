@@ -29,10 +29,18 @@ namespace nums {
 
   using std::string;
 
+  // requirement of templates,T must be a container.
+  template<class T>
+  concept must_be_container = requires(T a) {
+    typename T::iterator;
+    a.begin();
+    a.end();
+  };
+
   // user must match the type for custom interface which will
   // be installed.
 template<class T>
-  requires std::integral<T> || std::__detail::__class_or_enum<T>
+requires std::integral<T> || must_be_container<T>
   using combineFunc = long long int (*) (const T &);
 
   using transformFunc = string (*) (long long int);
@@ -57,23 +65,29 @@ template<class T>
   // The types of interfaces was defined by @combineFunc and @transformFunc.
   // Dont allow install the interface that has not same type of numscale.
 template<class T>
-  requires std::integral<T> || std::__detail::__class_or_enum<T>
+requires std::integral<T> || must_be_container<T>
   class numscale {
- private:
+  private:
     long long int value_;
     string transBuffer_;
     int SCALE_;			// This is scale for combine or transform
 
     combineFunc<T> combine;
     transformFunc transform;
+    /*
+    template<class T>
+      requires std::integral<T> || must_be_container<T>
+    using nums_cf = long long int (nums::numscale<T>::*) (const T &);
+    using nums_tf = string (nums::numscale<T>::*) (long long int);
+    */
 
- protected:
+  protected:
 
     /*
      * Combine function should match to class template with its type.
      * Source data from argument sent by user.
      */
-    long long int defaultGeneralCombine(const T &);
+    long long int defaultGeneralCombine(T &);
 
     /*
      * Transform function neednt match class template with any type.
@@ -86,12 +100,12 @@ template<class T>
     void install_transform(transformFunc theFunc) { transform = theFunc; }
     void uninstall_transform(void) { transform = NULL; }
 
-    static char genericNegativePrefixForScale(int x) {
+    static char generateNegativePrefixForScale(int x) {
       switch (x) {
       case HEX:
 	return 'f';
       case OCT:
-	return '0';
+	return '7';
       case DEC:
 	return '-';
       case BIN:
@@ -101,12 +115,11 @@ template<class T>
       }
     }
 
-    char scaleSymbolMapping(char x) {
-      char c(x);
+    char scaleSymbolMappingVTC(int v) {
+      char c(v + '0');
 
-      // In the case of HEX,OCT,DEC,BIN,just HEX should do mapping.
       if (HEX == this->SCALE_)
-	switch (x) {
+	switch (v) {
 	case 10:
 	  c = 'a';
 	  break;
@@ -114,7 +127,6 @@ template<class T>
 	case 11:
 	  c = 'b';
 	  break;
-
 	case 12:
 	  c = 'c';
 	  break;
@@ -131,48 +143,58 @@ template<class T>
 	  c = 'f';
 	  break;
 
-	default:
-	  switch (c) {
-	  case 'a':
-	    c = 10;
-	    break;
-
-	  case 'b':
-	    c = 11;
-	    break;
-
-	  case 'c':
-	    c = 12;
-	    break;
-
-	  case 'd':
-	    c = 13;
-	    break;
-
-	  case 'e':
-	    c = 14;
-	    break;
-
-	  case 'f':
-	    c = 15;
-	    break;
-
-	  default:
-	    ;
-	  }
+	default:;
 	}
 
       return c;
+
     }
 
- public:
+    int scaleSymbolMappingCTV(char c) {
+      int v(c - '0');
+
+      // In the case of HEX,OCT,DEC,BIN,just HEX should do mapping.
+      if (HEX == this->SCALE_)
+	switch (c) {
+	case 'a':
+	  v = 10;
+	  break;
+
+	case 'b':
+	  v = 11;
+	  break;
+
+	case 'c':
+	  v = 12;
+	  break;
+
+	case 'd':
+	  v = 13;
+	  break;
+
+	case 'e':
+	  v = 14;
+	  break;
+
+	case 'f':
+	  v = 15;
+	  break;
+
+	default:
+	  ;
+	}
+
+      return v;
+    }
+
+  public:
     numscale();
     numscale(size_t bufflen);
     virtual ~numscale();
 
     void install_or_uninstall(int action, combineFunc<T>);
     void install_or_uninstall(int action, transformFunc);
-    void doTransform(int sscale, int dscale, const T &target);
+    void doTransform(int sscale, int dscale,T &target);
     string getResult(void);
   };
 
@@ -180,6 +202,8 @@ template<class T>
 
 
 }
+
+#include"numsabs.tcc"
 
 // Header end
 #endif

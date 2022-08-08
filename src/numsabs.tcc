@@ -20,10 +20,19 @@
  /* Function */
 
 namespace nums {
+  
+  using std::cout;
+  using std::endl;
+
+
+  template<class T>
+  requires must_be_container<T>
+  using getIterator = T::iterator;
+
 
   // Constructor and Destructor
   template<class T>
-  numscale<T>::numscale() : transBuffer_(128) {
+  numscale<T>::numscale() : transBuffer_() {
     value_ = 0;
     SCALE_ = 2;
     combine = NULL;
@@ -31,7 +40,7 @@ namespace nums {
   }
 
   template<class T>
-  numscale<T>::numscale(size_t bufflen) : transBuffer_(bufflen) {
+  numscale<T>::numscale(size_t bufflen) : transBuffer_() {
     value_ = 0;
     SCALE_ = 2;
     combine = NULL;
@@ -43,21 +52,21 @@ namespace nums {
 
   // protected members
   template<class T>
-  long long int numscale<T>::defaultGeneralCombine(const T &target) {
+  long long int numscale<T>::defaultGeneralCombine(T &target) {
     long long int mulI(1);
     long long int result(0);
-    char negative_prefix(genericNegativePrefixForScale(SCALE_));
-    auto first(target.begin());
+    char negative_prefix(generateNegativePrefixForScale(SCALE_));
+    getIterator<T> first(target.begin());
 
     // count bits of target number.
-    for (auto index(target.end()); index > first; --index, mulI *= SCALE_)
-      result += static_cast<long long int>(scaleSymbolMapping((*index))) * mulI;
+    for (getIterator<T> index(target.end() - 1); index > first; --index, mulI *= SCALE_)
+      result += static_cast<long long int>(scaleSymbolMappingCTV(*index)) * mulI;
 
     // computer use the most taller bit as negative or positive indicator.
     if (*first == negative_prefix)
       result *= -1;
     else
-      result += static_cast<long long int>(scaleSymbolMapping(*first)) * mulI;
+      result += static_cast<long long int>(scaleSymbolMappingCTV(*first)) * mulI;
 
     return result;
   }
@@ -66,28 +75,40 @@ namespace nums {
   string numscale<T>::defaultGeneralTransform(long long int target) {
     string tempbuff(transBuffer_);
     string result(transBuffer_);
-    char negative_prefix(genericNegativePrefixForScale(SCALE_));
-    unsigned long long int tempValue = target;				// transform to positive number.
-    long long int quotient(1);
+    char negative_prefix(generateNegativePrefixForScale(SCALE_));
+    long long int quotient((target < 0) ? target * -1 : target);
+    bool if_negative((target < 0) ? true : false);
     const long long int divI(SCALE_);
-    string::iterator it_of_result(result.begin());
 
-    auto remainder = [tempValue, divI](void) -> long long int {
-      return tempValue - tempValue / divI * divI;
+    auto remainder = [divI](unsigned long long int x) -> long long int {
+      return x - x / divI * divI;
     };
-    auto quotientor = [tempValue, divI](void) -> long long int {
-      return tempValue / divI;
+    auto quotientor = [divI](unsigned long long int x) -> long long int {
+      return x / divI;
     };
 
     // transform number scale with remainder.
-    for (auto index(tempbuff.begin()); quotient != 0; ++index) {
-      *index = scaleSymbolMapping(static_cast<char>(remainder()));
-      tempValue = quotientor();
+    for ( ; quotient != 0; ) {
+      tempbuff += scaleSymbolMappingVTC(remainder(quotient));
+      quotient = quotientor(quotient);
     } 
 
     // complete buffer.
-    for (auto it_of_temp(string::iterator{tempbuff.end()}); it_of_temp >= tempbuff.begin(); --it_of_temp)
-      *it_of_result++ = *it_of_temp;
+    if (if_negative)
+      result += negative_prefix;
+
+    for (auto it_of_temp(tempbuff.end() - 1); it_of_temp >= tempbuff.begin(); --it_of_temp) {
+      result += *it_of_temp;
+    }
+
+#if defined DEBUG
+    cout<<tempbuff.length()<<" "<<tempbuff.size()<<endl;
+    cout<<result.length()<<" "<<tempbuff.size()<<endl;
+    cout<<tempbuff.empty()<<endl;
+    cout<<result.empty()<<endl;
+    cout<<tempbuff.substr(0,3)<<endl;
+    cout<<result.substr(0,3)<<endl;
+#endif
 
     return result;
   }
@@ -99,7 +120,7 @@ namespace nums {
     long long int result(0);
     long long int mulI(SCALE_);
     bool posi_or_nega(true);
-    char negative(genericNegativePrefixForScale(SCALE_));
+    char negative(generateNegativePrefixForScale(SCALE_));
     for (auto index(target.end()); index >= target.begin(); --index, mulI *= SCALE_) {
       if (*index == negative) {
 	posi_or_nega = false;
@@ -114,7 +135,7 @@ namespace nums {
 
   // specifically implement of int
   template<>
-  long long int numscale<int>::defaultGeneralCombine(const int &target) {
+  long long int numscale<int>::defaultGeneralCombine(int &target) {
     /*
     long long int decal_scale(10);
     long long int tempValue = target;
@@ -186,21 +207,26 @@ namespace nums {
   }
 
   template<class T>
-  void numscale<T>::doTransform(int sscale, int dscale, const T &target) {
-    if (!combine)
-      combine = defaultGeneralCombine;
-    if (!transform)
-      transform = defaultGeneralTransform;
+  void numscale<T>::doTransform(int sscale, int dscale,T &target) {
+
+//    Nums_cf<T> cf(defaultGeneralCombine);
+//    nums_tf tf(defaultGeneralTransform);
 
     SCALE_ = sscale;	// use enum type as SCALE.
-    value_ = combine(target);
+    if (!combine)
+      value_ = defaultGeneralCombine(target);
+    else
+      value_ = combine(target);
 
     SCALE_ = dscale;
-    transBuffer_ = transform(value_);
+    if (!transform)
+      transBuffer_ = defaultGeneralTransform(value_);
+    else
+      transBuffer_ = transform(value_);
   }
 
   template<class T>
-  string numscale<T>::getResult(void) { return this->transBuffer_; }
+  string numscale<T>::getResult(void) { auto ret(this->transBuffer_); this->transBuffer_.clear(); return ret; }
 
 
   // END OF NAMESPACE

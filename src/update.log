@@ -1,0 +1,20 @@
+20220809>
+	problems:
+		1> nums::numscale::defaultGeneralCombine() {
+		   got incorrected value from procedure.
+		   this error was provoked by char nums::numscale::scaleSymbolMapping(char).
+		   it was triggered while do ret-char - '0',but ret-char was assigned a value with the type of int.
+		}
+
+		2> nums::numscale::defaultGeneralTransform() {
+		   got incorrected value from procedure.
+		   this error was provoked by char nums::numscale::scaleSymbolMapping(char).
+		   it was triggered when do static_cast<long long int>(ret-char).
+		   it provokes the case that the characters all in buffer cant be print.(not correct value)
+		}
+
+	resolving:
+		rewrite char nums::numscale::scaleSymbolMapping(char).
+		dispatch it to two procedures the type are int scaleSymbolMappingCTV(char c)
+		and char scaleSymbolMappingVTC(int v).
+		call them for different case.
