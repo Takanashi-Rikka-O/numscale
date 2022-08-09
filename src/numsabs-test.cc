@@ -15,6 +15,7 @@
  /* Function */
 
 #include"nums-abstract.h"
+#include<iostream>
 
 int main(void) {
 

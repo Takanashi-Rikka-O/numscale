@@ -3,7 +3,6 @@
  * Type: Header 
  * Description: numscale abstracted definition.
  * Header:
- *	<iostream>
  *	<string>
  *	<cstdbool>
  *	<iterator>
@@ -17,7 +16,6 @@
 
  /* Feature */
  /* Header */
-#include<iostream>
 #include<string>
 #include<cstdbool>
 #include<iterator>
@@ -39,8 +37,8 @@ namespace nums {
 
   // user must match the type for custom interface which will
   // be installed.
-template<class T>
-requires std::integral<T> || must_be_container<T>
+  template<class T>
+  requires std::integral<T> || must_be_container<T>
   using combineFunc = long long int (*) (const T &);
 
   using transformFunc = string (*) (long long int);
@@ -64,36 +62,30 @@ requires std::integral<T> || must_be_container<T>
   // But numscale is just receive several type interface to be installed.
   // The types of interfaces was defined by @combineFunc and @transformFunc.
   // Dont allow install the interface that has not same type of numscale.
-template<class T>
-requires std::integral<T> || must_be_container<T>
+  template<class T>
+  requires std::integral<T> || must_be_container<T>
   class numscale {
   private:
     long long int value_;
     string transBuffer_;
     int SCALE_;			// This is scale for combine or transform
+    				// this variable just be used by defaultFunctions.
 
     combineFunc<T> combine;
     transformFunc transform;
-    /*
-    template<class T>
-      requires std::integral<T> || must_be_container<T>
-    using nums_cf = long long int (nums::numscale<T>::*) (const T &);
-    using nums_tf = string (nums::numscale<T>::*) (long long int);
-    */
 
   protected:
-
     /*
      * Combine function should match to class template with its type.
      * Source data from argument sent by user.
      */
-    long long int defaultGeneralCombine(T &);
+    virtual long long int defaultGeneralCombine(T &)const;
 
     /*
      * Transform function neednt match class template with any type.
      * The default transform function always get middle data from @value_.
      */
-    string defaultGeneralTransform(long long int);
+    virtual string defaultGeneralTransform(long long int)const;
 
     void install_combine(combineFunc<T> theFunc) { combine = theFunc; }
     void uninstall_combine(void) { combine = NULL; }
@@ -101,23 +93,34 @@ requires std::integral<T> || must_be_container<T>
     void uninstall_transform(void) { transform = NULL; }
 
     static char generateNegativePrefixForScale(int x) {
+      char c('\0');
       switch (x) {
       case HEX:
-	return 'f';
+	c = 'f';
+	break;
+
       case OCT:
-	return '7';
+	c = '7';
+	break;
+
       case DEC:
-	return '-';
+	c = '-';
+	break;
+
       case BIN:
-	return '1';
-      default:
-	return '0';
+	c = '1';
+	break;
+
+      default:;	
       }
+
+      return c;
     }
 
-    char scaleSymbolMappingVTC(int v) {
-      char c(v + '0');
+    // mapping procedure overload.
 
+    char scaleSymbolMapping(int v)const {
+      char c(v + '0');		// convert value to character
       if (HEX == this->SCALE_)
 	switch (v) {
 	case 10:
@@ -127,6 +130,7 @@ requires std::integral<T> || must_be_container<T>
 	case 11:
 	  c = 'b';
 	  break;
+
 	case 12:
 	  c = 'c';
 	  break;
@@ -147,13 +151,14 @@ requires std::integral<T> || must_be_container<T>
 	}
 
       return c;
-
     }
 
-    int scaleSymbolMappingCTV(char c) {
-      int v(c - '0');
+    /* these two procedures just do examine for HEX scale. */
+    /* because there just HEX scale has char-value mapping. */
+    /* program default defined DEC,OCT,HEX,BIN */
 
-      // In the case of HEX,OCT,DEC,BIN,just HEX should do mapping.
+    int scaleSymbolMapping(char c)const {
+      int v(c - '0');	// cover character to value
       if (HEX == this->SCALE_)
 	switch (c) {
 	case 'a':
@@ -180,32 +185,30 @@ requires std::integral<T> || must_be_container<T>
 	  v = 15;
 	  break;
 
-	default:
-	  ;
+	default:;
 	}
 
       return v;
     }
 
+
   public:
     numscale();
-    numscale(size_t bufflen);
+    numscale(size_t);
     virtual ~numscale();
 
     void install_or_uninstall(int action, combineFunc<T>);
     void install_or_uninstall(int action, transformFunc);
-    void doTransform(int sscale, int dscale,T &target);
+    virtual void doTransform(int sscale, int dscale,T &target);
     string getResult(void);
   };
 
-
-
-
+  // END OF NAMESPACE
 }
 
 #include"numsabs.tcc"
 
-// Header end
+// END OF HEADER
 #endif
  /* Function */
 

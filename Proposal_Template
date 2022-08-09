@@ -1,8 +1,11 @@
 								Project<numscale>
 
 Description:
-	numscale is a number format translate tool.Call it 'nums'.nums can translates the target from a type indicated by its prefix to other.
-	Usage: nums <-x | -o | -d | -b> <target>
+	numscale is a number format transform tool.Call it 'nums'.nums can transform the target from a type indicated by its scale to other.
+	Usage: numscale -s <srcscale> -d <desscale> <--> <data string>
+	# -- used to shutdown command line resolving.
+	# scale: 2 binary, 8 octal, 10 decimal, 16 hexadecimal
+	# had not support to floating value.
 
 Design reason:
 	Test for myself and i gonna make this tool to help my work.
@@ -36,17 +39,18 @@ Structure:
 		UNTIL quotient = 0 ;
 			
 Logic order:
-	Receives option and target from command-line,then call main procedure to process translating.User can use custom interface in this progam.
-	If didnt install any other translating interface,will use default of program.
+	Receives option and target from command-line,then call main procedure to process transforming.User can use custom interface in this progam.
+	If didnt install any other transforming interface,will use default of program.
 
 Feature design:
-	Simple translating.There is non some special features be there.
+	Simple transforming.There is non some special features be there.
 
 Develop environment:
 	Linux 3.10
-	gcc 9.3
+	gcc 10.3.0
 	glibc 2.17
 	CentOS 7
+	gnu++2a (c++20 implementation for gnu version)
 
 Debug or Other:
 	TODO:

@@ -13,8 +13,24 @@
 		   it provokes the case that the characters all in buffer cant be print.(not correct value)
 		}
 
-	resolving:
-		rewrite char nums::numscale::scaleSymbolMapping(char).
-		dispatch it to two procedures the type are int scaleSymbolMappingCTV(char c)
-		and char scaleSymbolMappingVTC(int v).
-		call them for different case.
+		resolving:
+			rewrite char nums::numscale::scaleSymbolMapping(char).
+			dispatch it to two procedures the type are int scaleSymbolMappingCTV(char c)
+			and char scaleSymbolMappingVTC(int v).
+			call them for different case.
+
+20220810>
+	problems:
+		no problems were occured there.
+
+	improving:
+		let nums::numscale::scaleSymbolMappingCTV() and nums::numscale::scaleSymbolMappingVTC()
+		become overload package of nums::numscale::scaleSymbolMapping().
+		added const-qualifier to defaultGeneralCombine() defaultGeneralTransform() and doTransform().
+		and also added virtual specifier to them.
+		added const-qualifier to each of overload version for nums::numscale::scaleSymbolMapping().
+
+		completed numscale.cc the numscale execute file.
+		completed makefile.
+
+		# now numscale should be availability.
