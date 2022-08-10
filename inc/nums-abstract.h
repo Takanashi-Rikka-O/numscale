@@ -39,7 +39,7 @@ namespace nums {
   // be installed.
   template<class T>
   requires std::integral<T> || must_be_container<T>
-  using combineFunc = long long int (*) (const T &);
+  using combineFunc = long long int (*) (T &);
 
   using transformFunc = string (*) (long long int);
 
